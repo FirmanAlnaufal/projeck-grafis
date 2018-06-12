@@ -1,2 +1,2 @@
 # projeck-grafis
-make some animation bird 3D*
+Bird 3D
