@@ -1,2 +1,4 @@
 # projeck-grafis
-make bird 3D
+make some animation bird 3D :D
+
+my first projeck
