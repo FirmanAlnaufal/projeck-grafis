@@ -1,6 +1,7 @@
 # projeck-grafis
 <<<<<<< HEAD
 make some animation bird 3D :D
+finisihed
 
 my first projeck
 =======
