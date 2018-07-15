@@ -5,6 +5,8 @@
 int w = 480, h = 480, z = -30;
 int x1 = 0, y1 = 0, z1 = 0, sudut = 0;
 
+
+
 void init (void)
 {
     glClearColor(0,0,1,0);
@@ -22,6 +24,46 @@ void init (void)
     gluPerspective(45.0, (GLdouble)w/ (GLdouble)h, 1.0, 300.0);
     glMatrixMode(GL_MODELVIEW);
 }
+
+void myKeyboard(unsigned char key, int x, int y) {
+
+if(key == 'w') z += 5; //mendekat
+
+else if (key == 's') z -= 5; //menjauh
+
+else if (key == 'x') { //rotasi sumbu x
+
+x1 = 1;
+
+y1 = 0;
+
+z1 = 0;
+
+sudut += 5;
+
+} else if (key == 'y') { //rotasi sumbu y
+
+x1 = 0;
+
+y1 = 1;
+
+z1 = 0;
+
+sudut += 5;
+
+} else if (key == 'z') { //rotasi sumbu z
+
+x1 = 0;
+
+y1 = 0;
+
+z1 = 1;
+
+sudut += 5;
+
+}
+}
+
 GLfloat angle = 0.0f;
 GLfloat direction = 1.0f;
 void renderScene(void)
@@ -37,7 +79,6 @@ void renderScene(void)
     //kepala
     glPushMatrix();
     glTranslatef(0,4,0);
-//    glRotatef(angle,1,0,0);
     glColor3f(0.5, 0.24, 1.0);
     glScalef(1.0,0.8,0.8);
     glutSolidSphere(4.6,100,100);
@@ -71,14 +112,14 @@ void renderScene(void)
     glColor3f(1.0,0.25,0);
     glRotatef(90,7,0,0);    
     glTranslatef(0, 3.5, -3.5);
-    glScalef(1, 1.0, 0.5);
+    glScalef(1.0, 1.0, 0.5);
     glutSolidSphere(0.7, 5, 500);
     glPopMatrix();
     
     //sayap
     glPushMatrix();
     glColor3f(0.5,0.24,1.0);
-//    glRotatef(angle,0,0,1);    
+    glRotatef(angle,0,0,1);    
     glTranslatef(6.0,3.2,-0.1);
     glScalef(0.8,0.3,0.0);
     glutSolidSphere(3,100,100);
@@ -86,7 +127,7 @@ void renderScene(void)
     
     glPushMatrix();
     glColor3f(0.5,0.24,1.0);
-//    glRotatef(-angle,0,0,1);    
+    glRotatef(-angle,0,0,1);    
     glTranslatef(-6.0,3.2,-0.1);
     glScalef(0.8,0.3,0.0);
     glutSolidSphere(3,100,100);
@@ -99,17 +140,6 @@ void renderScene(void)
   }
 
   glutSwapBuffers();
-}
-
-void reshape(GLsizei width, GLsizei height)
-{
-  if (height == 0)
-    height = 1;
-  GLfloat aspect = (GLfloat)width / (GLfloat)height;
-  glViewport(0, 0, width, height);
-  glMatrixMode(GL_PROJECTION);
-  glLoadIdentity();
-  gluPerspective(45.0f, aspect, 0.1f, 100.0f);
 }
 
 void timer(int value) {
@@ -128,8 +158,8 @@ int main (int argc, char**argv)
     glutInitWindowSize(w,h);
     glutCreateWindow("Bird 3D");
     glutDisplayFunc(renderScene);
-    glutReshapeFunc(reshape);
     glutTimerFunc(50, timer, 0);
+    glutKeyboardFunc(myKeyboard);
 
     init();
     glutMainLoop();
